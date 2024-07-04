@@ -1,0 +1,5 @@
+nlfp_project/*
+*.xml
+api.txt
+*.csv
+.env

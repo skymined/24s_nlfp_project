@@ -1,4 +1,4 @@
-nlfp_project/*
+/docs/nlfp_project/*
 *.xml
 api.txt
 *.csv

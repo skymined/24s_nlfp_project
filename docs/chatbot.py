@@ -4,9 +4,10 @@ import streamlit as st
 from assistant import EnhancedChatbot
 from openai import OpenAI
 import os
+import time
 
 if __name__ == "__main__":
-    api_key = os.getenv('api_key')
+    api_key = "your_key"
     model_name = "jhgan/ko-sbert-multitask"
     db_path = "./data/dataset_and_embeddings_text_test.pkl"
 
@@ -127,13 +128,31 @@ if __name__ == "__main__":
             # 사용자 메시지를 먼저 추가
             st.session_state.conversation.append((user_input, ""))
 
+            # 응답 생성 전체 시간 측정 시작
+            total_start_time = time.time()
+
             # 챗봇 응답 가져오기
             response = chatbot.get_response(user_input)
+
+            # 응답 생성 전체 시간 측정 종료
+            total_end_time = time.time()
+            total_elapsed_time = total_end_time - total_start_time
+
+            print(f"응답 생성 전체 시간: {total_elapsed_time:.2f}초")
+
+             # 화면에 나타나는 시간 측정 시작
+            render_start_time = time.time()
+
 
             # 마지막에 있는 사용자 메시지에 챗봇 응답을 추가
             st.session_state.conversation[-1] = (user_input, response)
             chatbot.current_conversation = st.session_state.conversation
             chatbot.save_conversation(user_input, response)  # save_conversation 호출
+            
+            # 화면에 나타나는 시간 측정 종료
+            render_end_time = time.time()
+            render_elapsed_time = render_end_time - render_start_time
+            print(f"화면에 나타나는 시간: {render_elapsed_time:.2f}초")
 
             # 리렌더링
             st.experimental_rerun()

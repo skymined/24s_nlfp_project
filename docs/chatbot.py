@@ -7,7 +7,7 @@ import os
 import time
 
 if __name__ == "__main__":
-    api_key = "your_key"
+    api_key = os.getenv("OPENAI_API_KEY")
     model_name = "jhgan/ko-sbert-multitask"
     db_path = "./data/dataset_and_embeddings_text_test.pkl"
 
